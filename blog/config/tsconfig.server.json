@@ -2,8 +2,13 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2016",
+
     "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
     "preserveConstEnums": true,
+    "strict": true,
+    
     "sourceMap": true,
     "outDir": "build"
   },
