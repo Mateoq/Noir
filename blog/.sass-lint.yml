@@ -1,0 +1,18 @@
+options:
+  merge-default-rules: true
+rules:
+  class-name-format:
+    - 1
+    - convention: 'hyphenatedbem'
+  empty-args:
+    - 1
+    - include: true
+  leading-zero:
+    - 1
+    - include: true
+  mixin-name-format:
+    - 1
+    - allow-leading-underscore: false
+  no-qualifying-elements:
+    - 1
+    - allow-element-with-attribute: true

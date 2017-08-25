@@ -1,7 +1,7 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended"
+      "tslint:recommended"
     ],
     "jsRules": {},
     "rules": {
@@ -9,19 +9,29 @@
         "no-magic-numbers": true,
         "no-invalid-template-strings": true,
         "max-line-length": [
-            false
-        ],
+          false
+         ],
         "no-require-imports": true,
         "object-literal-sort-keys": [
-            false
+          false
         ],
         "trailing-comma": [
-            false
+          false
         ],
         "comment-format": [
-            "check-space",
-            "check-uppercase"
-        ]
+          "check-space",
+          "check-uppercase"
+        ],
+        "number-literal-format": true,
+        "prefer-method-signature": true,
+        "prefer-switch": true,
+        "prefer-template": [true, "allow-single-concat"],
+        "quotemark": [
+          true,
+          "single",
+          "jsx-double"
+        ],
+        "space-within-parens": 0
     },
     "rulesDirectory": []
 }
