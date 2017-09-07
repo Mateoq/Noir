@@ -6,7 +6,9 @@
     "jsRules": {},
     "rules": {
         "no-any": true,
-        "no-magic-numbers": true,
+        "no-magic-numbers": [
+          true
+        ],
         "no-invalid-template-strings": true,
         "max-line-length": [
           false
@@ -31,7 +33,8 @@
           "single",
           "jsx-double"
         ],
-        "space-within-parens": 0
+        "space-within-parens": false,
+        "no-unused-variable": true
     },
     "rulesDirectory": []
 }

@@ -1,0 +1,10 @@
+{
+  "tslint.configFile": "./blog/config/tslint.json",
+  "typescript.tsdk": "./blog/node_modules/typescript/lib",
+  "sasslint.configFile": "./blog/config/sass-lint.yml",
+  "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "build": true
+  }
+}
