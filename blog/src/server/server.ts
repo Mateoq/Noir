@@ -10,6 +10,9 @@ import * as Hapi from 'hapi';
 // Contants.
 import { GET } from '../shared/constants/strings';
 
+// Server.
+import configServer from './config';
+
 // Routes.
 import * as Hello from './routes/hello';
 
@@ -24,36 +27,10 @@ server.connection({
   port: 10000
 });
 
-// Config.
-const options = {
-  ops: {
-    interval: 1000
-  },
-  reporters: {
-    consoleReporter: [
-      {
-        module: 'good-squeeze',
-        name: 'Squeeze',
-        args: [{ log: '*', response: '*' }]
-      },
-      {
-        module: 'good-console'
-      },
-      'stdout'
-    ]
-  }
-};
-
-// Routes.
-server.route(Hello.getHello);
-
-server.register({
-  register: Good.register,
-  options
-}, (goodErr: Error): void => {
-  if (goodErr) {
-    throw goodErr;
-  }
+// Config server.
+configServer(server, () => {
+  // Routes.
+  server.route(Hello.getHello);
 
   // Start server.
   server.start((err: Error): void => {
@@ -61,6 +38,6 @@ server.register({
       throw err;
     }
 
-    Whisper.info('Server running at ', server.info.uri || '');
+    Whisper.info('Server running at ', server.info.uri);
   });
 });

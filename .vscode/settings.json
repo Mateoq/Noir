@@ -1,7 +1,7 @@
 {
-  "tslint.configFile": "./blog/config/tslint.json",
-  "typescript.tsdk": "./blog/node_modules/typescript/lib",
-  "sasslint.configFile": "./blog/config/sass-lint.yml",
+  "tslint.configFile": "/Users/mquintero/Projects/Personal/Mix/Noir/blog/config/tslint.json",
+  "typescript.tsdk": "/Users/mquintero/Projects/Personal/Mix/Noir/blog/node_modules/typescript/lib",
+  "sasslint.configFile": "/Users/mquintero/Projects/Personal/Mix/Noir/blog/config/sass-lint.yml",
   "search.exclude": {
       "**/node_modules": true,
       "**/bower_components": true,

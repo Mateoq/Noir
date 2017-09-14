@@ -6,12 +6,12 @@
 import * as Hapi from 'hapi';
 
 // Constants.
-import { GET } from '../../shared/constants/strings';
 import { HELLO_ROUTE } from '../../shared/constants/routes';
+import { GET } from '../../shared/constants/strings';
 
 const getHelloHandler = (_: Hapi.Request, reply: Hapi.ReplyNoContinue): void => {
   reply('Hello world');
-}
+};
 
 export const getHello: Hapi.RouteConfiguration = {
   method: GET,
