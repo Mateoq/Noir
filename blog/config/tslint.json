@@ -6,20 +6,12 @@
     "jsRules": {},
     "rules": {
         "no-any": true,
-        "no-magic-numbers": [
-          true
-        ],
+        "no-magic-numbers": [true],
         "no-invalid-template-strings": true,
-        "max-line-length": [
-          false
-         ],
+        "max-line-length": [false],
         "no-require-imports": true,
-        "object-literal-sort-keys": [
-          false
-        ],
-        "trailing-comma": [
-          false
-        ],
+        "object-literal-sort-keys": [false],
+        "trailing-comma": [false],
         "comment-format": [
           "check-space",
           "check-uppercase"
@@ -34,7 +26,7 @@
           "jsx-double"
         ],
         "space-within-parens": false,
-        "no-unused-variable": true
+        "no-unused-variable": [true, "check-parameters"]
     },
     "rulesDirectory": []
 }
