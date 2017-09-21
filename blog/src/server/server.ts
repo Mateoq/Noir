@@ -4,17 +4,11 @@
  */
 
 // Hapi.
-import * as Good from 'good';
 import * as Hapi from 'hapi';
-
-// Contants.
-import { GET } from '../shared/constants/strings';
 
 // Server.
 import configServer from './config';
-
-// Routes.
-import * as Hello from './routes/hello';
+import configRoutes from './routes/router';
 
 // Utils.
 import * as Whisper from '../shared/utils/whisper';
@@ -30,7 +24,7 @@ server.connection({
 // Config server.
 configServer(server, () => {
   // Routes.
-  server.route(Hello.getHello);
+  configRoutes(server);
 
   // Start server.
   server.start((err: Error): void => {

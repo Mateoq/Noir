@@ -6,6 +6,10 @@
       "es2016"
     ],
 
+    "types": [
+      "node"
+    ],
+
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
@@ -17,8 +21,8 @@
     "outDir": "../build"
   },
   "include": [
-    "../src/server/**/*.ts",
-    "../config/**/*.ts"
+    "./src/server/**/*.ts",
+    "./config/**/*.ts"
   ],
   "exclude": [
     "node_modules"

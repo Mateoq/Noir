@@ -1,5 +1,7 @@
+import * as Whisper from '../shared/utils/whisper';
+
 function log(str: string): void {
-  console.log(str);
+  Whisper.log(str);
 }
 
 log('Client');

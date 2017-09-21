@@ -1,5 +1,6 @@
 {
   "tslint.configFile": "/Users/mquintero/Projects/Personal/Mix/Noir/blog/config/tslint.json",
+  "typescript.validate.enable": true,
   "typescript.tsdk": "/Users/mquintero/Projects/Personal/Mix/Noir/blog/node_modules/typescript/lib",
   "sasslint.configFile": "/Users/mquintero/Projects/Personal/Mix/Noir/blog/config/sass-lint.yml",
   "search.exclude": {
