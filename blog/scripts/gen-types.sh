@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------
 TYPES_FOLDER="types"
 LIBRARIES_FOLDER="node_modules/@types"
-LIBRARIES=("good")
+LIBRARIES=("good" "awesome-typescript-loader")
 
 mkdir -p $TYPES_FOLDER
 
