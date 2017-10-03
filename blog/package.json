@@ -7,12 +7,12 @@
   "author": "Mateoq",
   "license": "MIT",
   "scripts": {
-    "postinstall": "yarn run init",
-    "init": "./scripts/gen-types.sh",
+    "postinstall": "yarn run init && yarn run build:server",
+    "init": "./scripts/gen_types.sh",
     "start:server:dev": "nodemon --watch build build/server/main.js",
     "build:server:dev": "yarn run build:server -w",
     "build:server": "tsc -p config/tsconfig.server.json",
-    "build:client:dev": "tsc src/client/index.ts -w",
+    "build:client:dev": "webpack-dev-server --config config/webpack.config.dev.ts",
     "start:dev": "yarn run build:server && concurrently --kill-others --prefix '[{name}]' --names 'LINTER,CLIENT,SERVER,EXECUTION' --prefix-colors 'red,green,blue,gray' 'yarn run lint:dev' 'yarn run build:client:dev' 'yarn run build:server:dev' 'yarn run start:server:dev'",
     "lint:ts": "tslint -c config/tslint.json 'src/**/*.ts' --force",
     "lint:sass": "sass-lint -c config/sass-lint.yml 'src/**/*.scss' --verbose --no-exit",
@@ -51,6 +51,7 @@
     "sass-lint": "^1.11.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "ts-node": "^3.3.0",
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "webpack": "^3.6.0"
@@ -59,6 +60,7 @@
     "concurrently": "^3.5.0",
     "nodemon": "^1.11.0",
     "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.9.1",
     "webpack-hot-middleware": "^2.19.1"
   },
   "config": {

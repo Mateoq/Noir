@@ -7,7 +7,7 @@ TYPES_FOLDER="types"
 LIBRARIES_FOLDER="node_modules/@types"
 LIBRARIES=("good" "awesome-typescript-loader")
 
-mkdir -p $TYPES_FOLDER
+# mkdir -p $TYPES_FOLDER
 
 echo "-- Generating types --"
 for library in "${LIBRARIES[@]}"
@@ -18,6 +18,6 @@ done
 
 echo "-- Placing types on @types folder --"
 mv -f $TYPES_FOLDER/* $LIBRARIES_FOLDER/
-rm -rf $TYPES_FOLDER
+# rm -rf $TYPES_FOLDER
 
 echo "-- Done --"

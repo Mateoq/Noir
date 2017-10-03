@@ -7,7 +7,7 @@ import * as path from 'path';
 
 // Webpack.
 import * as autoprefixer from 'autoprefixer';
-import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
+import { CheckerPlugin, TsConfigPathsPlugin } from 'awesome-typescript-loader';
 import * as Webpack from 'webpack';
 import clientTsConfig from './tsconfig.client.json';
 
@@ -15,13 +15,13 @@ import clientTsConfig from './tsconfig.client.json';
 import {
   DEV_SERVER_PORT,
   HOST,
-  PUBLIC_DIR
+  PUBLIC_DIR,
+  SERVER_PORT
 } from './app';
 
 const config: Webpack.Configuration = {
   entry: [
     'webpack-hot-middleware/client',
-    'webpack/hot/only-dev-server',
     './src/client/main.ts'
   ],
   output: {
@@ -31,30 +31,40 @@ const config: Webpack.Configuration = {
   },
   resolve: {
     modules: ['src/client', 'node_modules'],
-    extensions: ['.ts']
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [
+      new TsConfigPathsPlugin({ tsconfig: clientTsConfig })
+    ]
   },
   devtool: 'source-map',
+  devServer: {
+    hot: true,
+    host: HOST,
+    port: DEV_SERVER_PORT,
+    proxy: {
+      '*': `http://${HOST}:${SERVER_PORT}`
+    },
+    stats: 'errors-only',
+    disableHostCheck: true
+  },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         use: [
           {
-            loader: 'awesome-typescript',
-            options: {
-              configFileName: 'config/tsconfig.client.json'
-            }
+            loader: 'awesome-typescript-loader'
           }
         ]
       },
       {
         test: /.scss$/,
         use: [
-          { loader: 'style' },
-          { loader: 'css', options: { sourceMap: true } },
-          { loader: 'resolve-url' },
+          { loader: 'style-loader' },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'resolve-url-loader' },
           {
-            loader: 'postcss',
+            loader: 'postcss-loader',
             options: {
               plugins: () => ([
                 autoprefixer({
@@ -68,17 +78,17 @@ const config: Webpack.Configuration = {
               ])
             }
           },
-          { loader: 'sass', options: { sourceMap: true } }
+          { loader: 'sass-loader', options: { sourceMap: true } }
         ]
       },
       {
-        test: /.json/,
-        use: 'json'
+        test: /.json$/,
+        use: 'json-loader'
       },
       {
         test: /\.(jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$/,
         use: {
-          loader: 'file',
+          loader: 'file-loader',
           options: { name: 'media/[name].[ext]' }
         }
       }
@@ -91,7 +101,7 @@ const config: Webpack.Configuration = {
       IS_BROWSER: true,
       IS_PRODUCTION: false
     }),
-    new TsConfigPathsPlugin({ tsconfig: clientTsConfig })
+    new CheckerPlugin()
   ]
 };
 
