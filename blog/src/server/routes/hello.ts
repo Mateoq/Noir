@@ -20,8 +20,8 @@ const getHelloHandler = (_: Hapi.Request, reply: Hapi.ReplyNoContinue): void => 
     <title>Document</title>
   </head>
   <body>
-    <h1>Hello</h1>
-    <script src="./public/bundle.js"></script>
+    <h1>Hi</h1>
+    <script src="bundle.js"></script>
   </body>
   </html>
   `);

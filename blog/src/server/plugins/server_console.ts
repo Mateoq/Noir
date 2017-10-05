@@ -9,6 +9,9 @@ import * as Hapi from 'hapi';
 // Types.
 import { PromiseReject, PromiseResolve } from '../../shared/utils/globals';
 
+// Utils.
+import * as Whisper from '../../shared/utils/whisper';
+
 const options = {
   ops: {
     interval: 1000
@@ -42,6 +45,7 @@ const configConsole = (server: Hapi.Server): Promise<{}> => {
         reject(err);
         return;
       }
+      Whisper.log('-- SERVER: Good plugin loaded --');
 
       resolve();
     });

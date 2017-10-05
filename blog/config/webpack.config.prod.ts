@@ -8,6 +8,9 @@ import * as path from 'path';
 // Webpack.
 import * as autoprefixer from 'autoprefixer';
 import { CheckerPlugin, TsConfigPathsPlugin } from 'awesome-typescript-loader';
+import * as cssnano from 'cssnano';
+import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
+import * as OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import * as Webpack from 'webpack';
 // import clientTsConfig from './tsconfig.client.json';
 
@@ -26,26 +29,15 @@ const config: Webpack.Configuration = {
   output: {
     filename: CLIENT_BUNDLE,
     path: PUBLIC_DIR,
-    publicPath: `http://${HOST}:${DEV_SERVER_PORT}/`
   },
   resolve: {
     modules: ['src/client', 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     plugins: [
       new TsConfigPathsPlugin({ /*tsconfig: clientTsConfig*/ configFileName: './tsconfig.client.json' })
     ]
   },
-  devtool: 'source-map',
-  devServer: {
-    hot: true,
-    host: HOST,
-    port: DEV_SERVER_PORT,
-    proxy: {
-      '*': `http://${HOST}:${SERVER_PORT}`
-    },
-    stats: 'errors-only',
-    disableHostCheck: true
-  },
+
   module: {
     rules: [
       {
@@ -61,27 +53,30 @@ const config: Webpack.Configuration = {
       },
       {
         test: /.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'resolve-url-loader' },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => ([
-                autoprefixer({
+        use: ExtractTextPlugin.extract({
+          use: [
+            // @import and url as require
+            { loader: 'css-loader' },
+            // Resolve relative paths
+            { loader: 'resolve-url-loader' },
+            // Autoprefixer
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => [autoprefixer({
                   browsers: [
                     '>1%',
                     'last 4 versions',
                     'Firefox ESR',
-                    'not ie < 9'
+                    'not ie < 9', // React doesn't support IE8 anyway
                   ]
-                })
-              ])
-            }
-          },
-          { loader: 'sass-loader', options: { sourceMap: true } }
-        ]
+                })]
+              }
+            },
+            // Convert to css
+            { loader: 'sass-loader', options: { sourceMap: true } }
+          ]
+        })
       },
       {
         test: /.json$/,
@@ -97,13 +92,20 @@ const config: Webpack.Configuration = {
     ],
   },
   plugins: [
-    new Webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('styles.css'),
     new Webpack.NamedModulesPlugin(),
     new Webpack.DefinePlugin({
       IS_BROWSER: true,
-      IS_PRODUCTION: false
+      IS_PRODUCTION: true
     }),
-    new CheckerPlugin()
+    new CheckerPlugin(),
+    new Webpack.optimize.UglifyJsPlugin(),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /styles.css$/,
+      cssProcessor: cssnano,
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
+    })
   ]
 };
 
